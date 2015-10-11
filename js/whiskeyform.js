@@ -1,6 +1,6 @@
 
 
-const TextField = React.createClass({
+var TextField = React.createClass({
     getInitialState() {
         return {
             value: ''
@@ -39,13 +39,37 @@ const TextField = React.createClass({
         );
     }
 });
+/*
+class Example extends React.Component {
+    constructor(...args) {
+        super(...args);
+        this.state = {
+            open: true
+        };
+    }
 
+    render() {
+        return (
+            <div>
+                <ReactBootstrap.Button onClick={ ()=> this.setState({ open: !this.state.open })}>
+                    click
+                </ReactBootstrap.Button>
+                <ReactBootstrap.Panel collapsible expanded={this.state.open}>
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </ReactBootstrap.Panel>
+            </div>
+        );
+    }
+}
+*/
 var WhiskeyForm = React.createClass({
 
 
     render() {
         return (
-            <div>
+            <ReactBootstrap.Well>
+                <ReactBootstrap.Panel collapsible defaultExpanded header={<strong>test panel</strong>} >
                 <form>
                     <TextField />
 
@@ -68,10 +92,11 @@ var WhiskeyForm = React.createClass({
                     <ReactBootstrap.ButtonInput type="reset" value="Reset Button" />
                     <ReactBootstrap.ButtonInput type="submit" value="Submit Button" />
                 </form>
-            </div>
-        )
+                    </ReactBootstrap.Panel>
+            </ReactBootstrap.Well>
+        );
     }
 });
 
 
-React.render(<WhiskeyForm />, document.getElementById('whiskeyform'));
+ReactDOM.render(<WhiskeyForm />, document.getElementById('whiskeyform'));

@@ -1,5 +1,6 @@
 body {
-
-
-    padding: 20px;
+   padding: 10px;
+}
+.well {
+    background-color: rgba(20, 45, 80, 0.6);
 }

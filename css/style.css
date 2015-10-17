@@ -4,3 +4,9 @@ body {
 .well {
     background-color: rgba(20, 45, 80, 0.6);
 }
+.borderWell {
+    background-color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+}

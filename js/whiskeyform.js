@@ -1,223 +1,4 @@
-const innerCheckbox = <input type="checkbox" />;
 
-var UserSection = React.createClass({
-
-    render() {
-        var usernames = this.props.users.map(function(user) {
-            return (
-                <option value={user.username} key={user.userId}>{user.username}</option>
-            );
-        });
-        return (
-            <ReactBootstrap.Panel collapsible defaultExpanded header={<strong>Who am I?</strong>}>
-
-                <ReactBootstrap.Grid fluid>
-                    <ReactBootstrap.Row>
-                        <ReactBootstrap.Col xs={12} >
-                            <ReactBootstrap.Input type="select" label="Name" labelClassName="col-xs-2"
-                                                  placeholder="Name" wrapperClassName="col-xs-10">
-                                {usernames}
-                            </ReactBootstrap.Input>
-                        </ReactBootstrap.Col>
-
-                    </ReactBootstrap.Row>
-                </ReactBootstrap.Grid>
-
-            </ReactBootstrap.Panel>
-        );
-    }
-});
-
-/* Sample whiskey JSON
-     "whiskeyId":1,
-     "name":"Buffalo Trace",
-     "whiskeyType":"Kentucky Straight Bourbon",
-     "proof":90,
-     "wood":"Charred white oak",
-     "age":2
- */
-var WhiskeySection = React.createClass({
-    handleChange() {
-        this.props.onWhiskeySelect(
-            this.refs.whiskeySelector.getInputDOMNode().value
-        );
-    },
-
-    render() {
-        var whiskeynames = this.props.whiskeys.map(function(whiskey) {
-            return (
-                <option value={whiskey.whiskeyId} key={whiskey.whiskeyId}>{whiskey.name}</option>
-            );
-        });
-
-        var whiskeyType = '',
-            whiskeyWood = '',
-            whiskeyABV = '',
-            whiskeyAge = '',
-            whiskeyProof = '';
-
-        this.props.whiskeys.map(function(whiskey) {
-            if(whiskey.whiskeyId == this.props.whiskeyId) {
-                whiskeyType = whiskey.whiskeyType;
-                whiskeyWood = whiskey.wood;
-                whiskeyABV = whiskey.proof/2;
-                whiskeyAge = whiskey.age + " years";
-                whiskeyProof = whiskey.proof;
-
-            }
-        }.bind(this));
-
-        return (
-            <ReactBootstrap.Panel collapsible defaultExpanded header={<strong>Whiskey Details</strong>} >
-
-                <ReactBootstrap.Grid fluid>
-                    <ReactBootstrap.Row>
-                        <ReactBootstrap.Col xs={12} sm={6} >
-                            <ReactBootstrap.Input type="select" label="Name" ref="whiskeySelector" onChange={this.handleChange} labelClassName="col-xs-2" wrapperClassName="col-xs-10" >
-                                {whiskeynames}
-                            </ReactBootstrap.Input>
-                        </ReactBootstrap.Col>
-                        <ReactBootstrap.Col xs={12} sm={6} >
-                            <ReactBootstrap.FormControls.Static label="Type" value={whiskeyType} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Col>
-                    </ReactBootstrap.Row>
-                    <ReactBootstrap.Row>
-                        <ReactBootstrap.Col xs={12} sm={6} >
-                            <ReactBootstrap.FormControls.Static label="Wood" value={whiskeyWood} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Col>
-                        <ReactBootstrap.Col xs={12} sm={6} >
-                            <ReactBootstrap.FormControls.Static label="ABV" value={whiskeyABV} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Col>
-                    </ReactBootstrap.Row>
-                    <ReactBootstrap.Row>
-                        <ReactBootstrap.Col xs={12} sm={6} >
-                            <ReactBootstrap.FormControls.Static label="Age" value={whiskeyAge} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Col>
-                        <ReactBootstrap.Col xs={12} sm={6} >
-                            <ReactBootstrap.FormControls.Static label="Proof" value={whiskeyProof} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Col>
-                    </ReactBootstrap.Row>
-
-                </ReactBootstrap.Grid>
-
-            </ReactBootstrap.Panel>
-
-        );
-    }
-});
-
-var SurveySection = React.createClass({
-
-    render() {
-        return (
-            <ReactBootstrap.Panel collapsible defaultExpanded header={<strong>Whiskey Ratings</strong>} >
-
-                <ReactBootstrap.Grid fluid>
-                    <ReactBootstrap.Well className="borderWell">
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="textarea"
-                                                  label="Appearance"
-                                                  help="Color? Cloudy/Hazy? Sediment?"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="number"
-                                                  label="Ranking"
-                                                  min="1"
-                                                  max="10"
-                                                  placeholder="1-10"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                    </ReactBootstrap.Well>
-
-                    <ReactBootstrap.Well className="borderWell">
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="textarea"
-                                                  label="Aroma"
-                                                  help="Examples: Boozy Sweet Caramel Chocolate Tobacco Musty Phenolic Maple Syrup"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="number"
-                                                  label="Ranking"
-                                                  min="1"
-                                                  max="10"
-                                                  placeholder="1-10"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                    </ReactBootstrap.Well>
-
-                    <ReactBootstrap.Well className="borderWell">
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="textarea"
-                                                  label="Taste"
-                                                  placeholder="Try adding ice if it tastes too boozy!"
-                                                  help="Examples: Boozy Woody Chocolate Tobacco Green/Phenolic Sweet Maple-Syrup Smoky Musty Caramel Honey/Molasses/Brown-Sugar Toasted Dirty Salty"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="textarea"
-                                                  label="Mouthfeel"
-                                                  help="Examples: Smooth Harsh Oily Gritty Thick/Thin"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="number"
-                                                  label="Ranking"
-                                                  min="1"
-                                                  max="10"
-                                                  placeholder="1-10"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                    </ReactBootstrap.Well>
-
-                    <ReactBootstrap.Row>
-                        <ReactBootstrap.FormControls.Static label="Total Score" value='0-30' labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
-                    </ReactBootstrap.Row>
-
-                    <ReactBootstrap.Well className="borderWell">
-                        <ReactBootstrap.Row>
-                        <ReactBootstrap.Input type="textarea"
-                                              label="Recommended?"
-                                              addonBefore={innerCheckbox}
-                                              placeholder="What setting?"
-                                              labelClassName="col-xs-2"
-                                              wrapperClassName="col-xs-10" />
-                    </ReactBootstrap.Row>
-
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="textarea"
-                                                  label="Bottle Design"
-                                                  help="Label? Bottle? Cap? Colors? Name?"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                        <ReactBootstrap.Row>
-                            <ReactBootstrap.Input type="number"
-                                                  label="Ranking"
-                                                  min="1"
-                                                  max="10"
-                                                  placeholder="1-10"
-                                                  labelClassName="col-xs-2"
-                                                  wrapperClassName="col-xs-10" />
-                        </ReactBootstrap.Row>
-                    </ReactBootstrap.Well>
-                    <ReactBootstrap.Row>
-                        <ReactBootstrap.ButtonInput type="submit" value="Submit" style={{display:'block',marginLeft:'auto',marginRight:'auto'}} />
-                    </ReactBootstrap.Row>
-                </ReactBootstrap.Grid>
-
-            </ReactBootstrap.Panel>
-        );
-    }
-});
 
 var WhiskeyForm = React.createClass({
     getInitialState() {
@@ -288,6 +69,22 @@ var WHISKEYS=[
         "proof":80,
         "wood":"Charred white oak",
         "age":2
+    },
+    {
+        "whiskeyId":3,
+        "name":"Chicago Distilling Co. Dunkelweiss Whiskey",
+        "whiskeyType":"Malt Whiskey",
+        "proof":90,
+        "wood":"Oak-charred new 5 gallon barrel",
+        "age":0.25
+    },
+    {
+        "whiskeyId":4,
+        "name":"Chicago Distilling Co. Stout Whiskey",
+        "whiskeyType":"Craft Whiskey",
+        "proof":90,
+        "wood":"Oak-charred new 5 gallon barrel",
+        "age":0.25
     }
 ];
 

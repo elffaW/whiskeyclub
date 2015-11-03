@@ -5,3 +5,4 @@
 - some way to view the data would be cool too
 
 https://github.com/christianalfoni/formsy-react
+    - might be useful for the forms

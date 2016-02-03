@@ -1,0 +1,7 @@
+/node_modules/
+whiskeyclub.sublime*
+/build/*js
+/build/*ttf
+/build/*svg
+/build/*eot
+/src/ignore/

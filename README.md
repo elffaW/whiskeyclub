@@ -10,6 +10,9 @@
     - go to localhost:8080 to see the dev server
     - changes to code are picked up on the fly and page is auto-refreshed
 
+#Other Info
+`npm run lint` - runs linting with a simple set of style guidelines/rules
+
 Notes:
 - starting out with a web form to enter survey results about different whiskeys
     - data should be stored to a database (see diagram)

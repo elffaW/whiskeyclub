@@ -11,6 +11,7 @@ defmodule Whiskeyclub do
       supervisor(Whiskeyclub.Endpoint, []),
       # Here you could define other workers and supervisors as children
       # worker(Whiskeyclub.Worker, [arg1, arg2, arg3]),
+      supervisor(Whiskeyclub.Repo, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

@@ -8,3 +8,12 @@ config :whiskeyclub, Whiskeyclub.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Configure your database
+config :whiskeyclub, Whiskeyclub.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "whiskey123",
+  database: "test_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox

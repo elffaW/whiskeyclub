@@ -18,13 +18,21 @@ defmodule Whiskeyclub.Web do
 
   def model do
     quote do
-      # Define common model functionality
+      use Ecto.Schema
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query, only: [from: 1, from: 2]
     end
   end
 
   def controller do
     quote do
       use Phoenix.Controller
+
+      alias Whiskeyclub.Repo
+      import Ecto
+      import Ecto.Query, only: [from: 1, from: 2]
 
       import Whiskeyclub.Router.Helpers
       import Whiskeyclub.Gettext
@@ -56,6 +64,8 @@ defmodule Whiskeyclub.Web do
   def channel do
     quote do
       use Phoenix.Channel
+      import Ecto
+      import Ecto.Query, only: [from: 1, from: 2]
       import Whiskeyclub.Gettext
     end
   end

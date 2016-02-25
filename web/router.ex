@@ -17,6 +17,15 @@ defmodule Whiskeyclub.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+  end
+
+  scope "/api", Whiskeyclub do
+    pipe_through :api
+
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/whiskeys", WhiskeyController, except: [:new, :edit]
+    resources "/surveys", SurveyController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.

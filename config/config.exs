@@ -5,6 +5,14 @@
 # is restricted to this project.
 use Mix.Config
 
+config :whiskeyclub, Whiskeyclub.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  database: "whiskeyclub_repo",
+  username: "postgres",
+  password: "whiskey123",
+  hostname: "localhost"
+
+
 # Configures the endpoint
 config :whiskeyclub, Whiskeyclub.Endpoint,
   url: [host: "localhost"],

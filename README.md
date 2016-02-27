@@ -1,14 +1,18 @@
 # whiskeyclub
 
+This is a Phoenix backend that provides a REST-ful API and renders a React frontend.
+
 #Install
-`npm install`
+
+Follow the Phoenix installation guide to get Erlang (runtime), Elixir
+(language), and finally Phoenix (framework) installed.
+
+http://www.phoenixframework.org/docs/installation
 
 #Build
-`npm run build` - runs JS through babel and bundles with webpack, outputs into build dir
 
-`npm run watch` - does a build and then starts a mini express server for dev purposes
-    - go to localhost:8080 to see the dev server
-    - changes to code are picked up on the fly and page is auto-refreshed
+Run a Phoenix dev server with `mix phoenix.server` and it will watch for
+changes to both the Phoenix and React components and re-render them.
 
 #Other Info
 `npm run lint` - runs linting with a simple set of style guidelines/rules

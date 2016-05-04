@@ -1,7 +1,7 @@
 'use strict';
 
 var path = require('path'),
-	srcPath = path.join(__dirname, 'src');
+	srcPath = path.join(__dirname, 'web/static/js');
 
 module.exports = {
 	entry: path.join(srcPath, 'whiskeyform.js'),
@@ -13,8 +13,8 @@ module.exports = {
 	},
 
 	output: {
-		path: path.join(__dirname, 'build'),
-		filename: 'bundle.js'
+		path: path.join(__dirname, 'priv/static/js'),
+		filename: 'app.js'
 	},
 
 	module: {

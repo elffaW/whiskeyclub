@@ -19,7 +19,7 @@ defmodule Whiskeyclub.Survey do
     timestamps
   end
 
-  @required_fields ~w(appearance appearance_rating aroma aroma_rating taste taste_rating recommend rec_taste bottle_design design_rating tasting_date)
+  @required_fields ~w(appearance appearance_rating aroma aroma_rating taste taste_rating recommend rec_taste bottle_design design_rating tasting_date user_id whiskey_id)
   @optional_fields ~w()
 
   @doc """
@@ -31,5 +31,7 @@ defmodule Whiskeyclub.Survey do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:whiskey_id)
   end
 end

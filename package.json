@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "falcor": "^0.1.14",
+    "jquery": "^2.2.3",
     "less": "^2.5.3",
     "lodash": "^3.10.1",
     "react": "^0.14.3",

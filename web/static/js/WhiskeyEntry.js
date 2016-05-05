@@ -2,15 +2,35 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Panel, Grid, Row, Col, Input, FormControls } from 'react-bootstrap';
 
+import $ from 'jquery';
+
 /* Sample whiskey JSON
- "whiskeyId":1,
+ "id":1,
  "name":"Buffalo Trace",
- "whiskeyType":"Kentucky Straight Bourbon",
+ "type":"Kentucky Straight Bourbon",
  "proof":90,
  "wood":"Charred white oak",
  "age":2
  */
-var WhiskeySection = React.createClass({
+let WhiskeySection = React.createClass({
+    getInitialState() {
+        return { whiskeys: [] };
+    },
+
+    componentDidMount() {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({ whiskeys:data.data });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
     handleChange() {
         this.props.onWhiskeySelect(
             this.refs.whiskeySelector.getInputDOMNode().value
@@ -18,31 +38,34 @@ var WhiskeySection = React.createClass({
     },
 
     render() {
-        var whiskeynames = this.props.whiskeys.map(function(whiskey) {
+        let whiskeynames = this.state.whiskeys.map(function(whiskey) {
             return (
-                <option value={whiskey.whiskeyId} key={whiskey.whiskeyId}>{whiskey.name}</option>
+                <option value={whiskey.id} key={whiskey.id}>{whiskey.name}</option>
             );
         });
 
-        var whiskeyType = '',
-            whiskeyWood = '',
-            whiskeyABV = '',
-            whiskeyAge = '',
-            whiskeyProof = '';
+        let type = '',
+            wood = '',
+            abv = '',
+            age = '',
+            proof = '';
 
-        this.props.whiskeys.map(function(whiskey) {
-            if(whiskey.whiskeyId == this.props.whiskeyId) {
-                whiskeyType = whiskey.whiskeyType;
-                whiskeyWood = whiskey.wood;
-                whiskeyABV = whiskey.proof/2;
-                whiskeyAge = whiskey.age + ' years';
-                whiskeyProof = whiskey.proof;
+        this.state.whiskeys.map(function(whiskey) {
+            if(whiskey.id == this.props.whiskeyId) {
+                type = whiskey.type;
+                wood = whiskey.wood;
+                abv = whiskey.proof/2;
+                age = whiskey.age + ' years';
+                proof = whiskey.proof;
 
             }
         }.bind(this));
 
         return (
-            <Panel collapsible defaultExpanded header={<strong>Whiskey Details</strong>} >
+            <Panel collapsible 
+                   defaultExpanded 
+                   bsStyle="primary"
+                   header={<strong>Whiskey Details</strong>} >
 
                 <Grid fluid>
                     <Row>
@@ -52,23 +75,23 @@ var WhiskeySection = React.createClass({
                             </Input>
                         </Col>
                         <Col xs={12} sm={6} >
-                            <FormControls.Static label="Type" value={whiskeyType} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
+                            <FormControls.Static label="Type" value={type} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={12} sm={6} >
-                            <FormControls.Static label="Wood" value={whiskeyWood} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
+                            <FormControls.Static label="Wood" value={wood} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
                         </Col>
                         <Col xs={12} sm={6} >
-                            <FormControls.Static label="ABV" value={whiskeyABV} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
+                            <FormControls.Static label="ABV" value={abv} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={12} sm={6} >
-                            <FormControls.Static label="Age" value={whiskeyAge} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
+                            <FormControls.Static label="Age" value={age} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
                         </Col>
                         <Col xs={12} sm={6} >
-                            <FormControls.Static label="Proof" value={whiskeyProof} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
+                            <FormControls.Static label="Proof" value={proof} labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
                         </Col>
                     </Row>
 

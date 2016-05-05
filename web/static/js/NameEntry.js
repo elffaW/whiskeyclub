@@ -2,16 +2,43 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Panel, Grid, Row, Col, Input } from 'react-bootstrap';
 
-var UserSection = React.createClass({
+import $ from 'jquery';
+
+let UserSection = React.createClass({
+    getInitialState() {
+        return { users: [] };
+    },
+
+    componentDidMount() {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({ users:data.data });
+                this.props.handleUserChange( data.data[0].id );
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
+    handleUserChange() {
+        this.props.handleUserChange( this.refs.userSelector.getInputDOMNode().value );
+    },
 
     render() {
-        var usernames = this.props.users.map(function(user) {
+        let usernames = this.state.users.map(function(user) {
             return (
-                <option value={user.username} key={user.userId}>{user.username}</option>
+                <option value={user.id} key={user.id}>{user.name}</option>
             );
         });
         return (
-            <Panel collapsible defaultExpanded header={<strong>Who am I?</strong>}>
+            <Panel collapsible 
+                   defaultExpanded 
+                   bsStyle="primary"
+                   header={<strong>Who am I?</strong>}>
 
                 <Grid fluid>
                     <Row>
@@ -19,6 +46,8 @@ var UserSection = React.createClass({
                             <Input type="select" 
                                    label="Name" 
                                    labelClassName="col-xs-2"
+                                   ref="userSelector"
+                                   onChange={this.handleUserChange}
                                    placeholder="Name" 
                                    wrapperClassName="col-xs-10">
                                 {usernames}

@@ -12,7 +12,8 @@ import * as bootstrapstyle from 'css/bootstrap.min.css';
 var WhiskeyForm = React.createClass({
     getInitialState() {
         return {
-            whiskeyId:1
+            whiskeyId:1,
+            userId:-1
         };
     },
 
@@ -22,24 +23,35 @@ var WhiskeyForm = React.createClass({
         });
     },
 
+    handleUserChange(userId) {
+        this.setState({
+            userId: userId
+        });
+    },
+
     render() {
         return (
             <Well >
-                <form className="form-horizontal">
-                    <UserSection users={this.props.users} />
+                
+                    <UserSection url="/api/users"
+                                 handleUserChange={this.handleUserChange} />
 
-                    <WhiskeySection whiskeys={this.props.whiskeys}
+                    <WhiskeySection url="/api/whiskeys"
+                                    whiskeys={this.props.whiskeys}
                                     whiskeyId={this.state.whiskeyId}
                                     onWhiskeySelect={this.handleWhiskeySelect} />
 
-                    <SurveySection />
+                    <SurveySection url="/api/surveys"
+                                   curWhiskey={this.state.whiskeyId}
+                                   curUser={this.state.userId} />
 
-                </form>
+                
             </Well>
         );
     }
 });
 
+/* no being used anymore because we have an API now! leaving for now as examples...
 var USERS=[
     {'userId':1,'username':'Mike','email':''},
     {'userId':2,'username':'Billy','email':''},
@@ -60,8 +72,9 @@ var USERS=[
     {'userId':17,'username':'Katie','email':''},
     {'userId':18,'username':'Casey','email':''},
     {'userId':19,'username':'Steph','email':''}
-];
+];*/
 
+/* same as USERS - not needed but left as examples
 var WHISKEYS=[
     {
         'whiskeyId':1,
@@ -95,7 +108,7 @@ var WHISKEYS=[
         'wood':'Oak-charred new 5 gallon barrel',
         'age':0.25
     }
-];
+];*/
 
 var SURVEYS=[
     {   'surveyId':1,
@@ -132,4 +145,4 @@ var SURVEYS=[
 
 
 
-ReactDOM.render(<WhiskeyForm users={USERS} whiskeys={WHISKEYS} surveys={SURVEYS} />, document.getElementById('whiskeyform'));
+ReactDOM.render(<WhiskeyForm />, document.getElementById('whiskeyform'));

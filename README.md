@@ -2,6 +2,11 @@
 
 This is a Phoenix backend that provides a REST-ful API and renders a React frontend.
 
+#Status | TODO
+- hitting API to get list of users,whiskeys from DB
+- inserting surveys into DB
+- TODO: inserting surveys with foreign keys to user/whiskey does not work, need to figure out how to link tables...
+
 #Install
 
 Follow the Phoenix installation guide to get Erlang (runtime), Elixir

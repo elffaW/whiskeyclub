@@ -4,8 +4,8 @@ This is a Phoenix backend that provides a REST-ful API and renders a React front
 
 #Status | TODO
 - hitting API to get list of users,whiskeys from DB
-- inserting surveys into DB
-- TODO: inserting surveys with foreign keys to user/whiskey does not work, need to figure out how to link tables...
+- inserting surveys into DB (with links to users/whiskeys)
+- TODO - deploy somewhere
 
 #Install
 
